@@ -18,8 +18,12 @@ public class UsuariosController {
     private UsuariosService service;
 
     @GetMapping("/buscar")
-    public List<Usuarios> getAll() {
-        return service.getAll();
+    public List<Usuarios> getAll(@RequestParam(required = false) String nome) {
+        if (nome != null && !nome.isEmpty()) {
+            return service.getAllByName(nome);
+        } else {
+            return service.getAll();
+        }
     }
 
     @GetMapping("/buscar/{id}")
@@ -31,11 +35,6 @@ public class UsuariosController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @GetMapping("/buscarNome/{nome}")
-    public List<Usuarios> getAllByNome(@PathVariable String nome) {
-        return service.getAllByName(nome);
     }
 
     @GetMapping("/buscarCPF/{cpf}")
