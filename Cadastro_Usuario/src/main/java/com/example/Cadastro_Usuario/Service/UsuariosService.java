@@ -51,6 +51,8 @@ public class UsuariosService {
             usuarios.setEmail(usuariosDTO.getEmail());
             usuarios.setData_nascimento(usuariosDTO.getData_nascimento());
 
+            usuarios = repository.save(usuarios);
+
             return Optional.of(usuariosDTO.fromUsuarios(usuarios));
         } else {
             return Optional.empty();
@@ -76,6 +78,8 @@ public class UsuariosService {
 
             usuarios.setSenha(usuariosDTO.getSenha());
 
+            usuarios = repository.save(usuarios);
+
             return Optional.of(usuariosDTO.fromUsuarios(usuarios));
         } else {
             return Optional.empty();
@@ -83,7 +87,19 @@ public class UsuariosService {
     }
 
     // Buscar usuários com base em seu 'nome'
-
+    public List<Usuarios> getAllByName(String nome) {
+        return repository.findAllByNome(nome);
+    }
 
     // Buscar usuários com base em seu 'cpf'
+    public Optional<UsuariosDTO> getByCpf(String cpf) {
+        Optional<Usuarios> optional = repository.findAllByCpf(cpf);
+
+        if (optional.isPresent()) {
+            UsuariosDTO usuariosDTO = new UsuariosDTO();
+            return Optional.of(usuariosDTO.fromUsuarios(optional.get()));
+        } else {
+            return Optional.empty();
+        }
+    }
 }
