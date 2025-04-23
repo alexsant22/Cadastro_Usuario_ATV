@@ -21,7 +21,7 @@ public class UsuariosDTO implements Serializable {
     private String senha;
     private Date data_nascimento;
 
-    public Usuarios toUsucarios() {
+    public Usuarios toUsuarios() {
         return new Usuarios(
                 this.id,
                 this.nome,
