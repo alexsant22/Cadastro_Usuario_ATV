@@ -41,7 +41,7 @@
         async function getUsuarioPorId(id) {
 
             try {
-                let response = await fetch(`http://localhost:8080/usuario/${id}`, {
+                let response = await fetch(`http://localhost:8080/usuario/buscar/${id}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                 });
@@ -61,8 +61,9 @@
 
         //## Enviar usuario para salvar(POST)
         function criarObjetoJson(){
-            
-            // ESTRUTURE O OBJETO NO FORMATO JSON
+            let formData = {
+                senha: document.getElementById("senha").value,
+            }
 
             return formData
         }
@@ -74,7 +75,7 @@
             let formData = criarObjetoJson()
 
             try {
-                let response = await fetch(`http://localhost:8080/usuario/${id}/senha`, {
+                let response = await fetch(`http://localhost:8080/usuario/atualizarSenha/${id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData)

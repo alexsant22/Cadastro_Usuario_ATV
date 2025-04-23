@@ -51,13 +51,13 @@
             document.getElementById("email").value = data.email;
             document.getElementById("username").value = data.username;
             document.getElementById("senha").value = data.senha;
-            document.getElementById("dataNascimento").value = data.dataNascimento;
+            document.getElementById("dataNascimento").value = data.data_nascimento;
         }
 
         async function getUsuarioPorId(id) {
 
             try {
-                let response = await fetch(`http://localhost:8080/usuario/${id}`, {
+                let response = await fetch(`http://localhost:8080/usuario/buscar/${id}`, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                 });
@@ -77,8 +77,13 @@
 
         //## Enviar usuario para salvar(POST)
         function criarObjetoJson(){
-            
-            // ESTRUTURE O OBJETO NO FORMATO JSON
+            let formData = {
+            nome: document.getElementById("nome").value,
+            sobrenome: document.getElementById("sobrenome").value,
+            cpf: document.getElementById("cpf").value,
+            email: document.getElementById("email").value,
+            data_nascimento: document.getElementById("dataNascimento").value
+            }
 
             return formData
         }
@@ -90,7 +95,7 @@
             let formData = criarObjetoJson()
 
             try {
-                let response = await fetch(`http://localhost:8080/usuario/${id}`, {
+                let response = await fetch(`http://localhost:8080/usuario/atualizar/${id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData)

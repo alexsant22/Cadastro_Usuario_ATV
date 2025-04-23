@@ -36,6 +36,10 @@
     <form id="usuarioBusca">
         <label>Nome do Usuario:</label>
         <input type="text" name="nomeBusca" id="nomeBusca"><br><br>
+
+        <label>Buscar por CPF:</label>
+        <input type="text" name="cpfBusca" id="cpfBusca"><br><br>
+
         <button type="submit">Carregar Usuarios</button>
     </form>
 
@@ -45,8 +49,15 @@
     <script>
         // ## Funções para enviar Usuarios(POST)
         function criarObjetoParaEnviar(){
-            
-            // ESTRUTURE O OBJETO NO FORMATO JSON
+            let formData = {
+                nome: document.getElementById("nome").value,
+                sobrenome: document.getElementById("sobrenome").value,
+                cpf: document.getElementById("cpf").value,
+                email: document.getElementById("email").value,
+                username: document.getElementById("username").value,
+                senha: document.getElementById("senha").value,
+                data_nascimento: document.getElementById("dataNascimento").value
+            }
 
             return formData
         }
@@ -57,7 +68,7 @@
             let formData = criarObjetoParaEnviar();
             
             try {
-                let response = await fetch("http://localhost:8080/usuario", {
+                let response = await fetch("http://localhost:8080/usuario/adicionar", {
                 method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData)
@@ -85,7 +96,7 @@
             data.forEach(usuario => {
                 let item = document.createElement("li");
                 item.textContent = `ID: ${usuario.id} - Nome: ${usuario.nome} - Sobrenome: ${usuario.sobrenome} - CPF: ${usuario.cpf}
-                    - Email: ${usuario.email} - Username: ${usuario.username} - Senha: ${usuario.senha} - Data Nascimento: ${usuario.dataNascimento}`;
+                    - Email: ${usuario.email} - Username: ${usuario.username} - Senha: ${usuario.senha} - Data Nascimento: ${usuario.data_nascimento}`;
                 
                 // botão de editar
                 let btnLink = document.createElement("button");
@@ -116,7 +127,7 @@
             let nomeBusca = document.getElementById("nomeBusca").value; // acrecentando filtro de nome a busca, caso necessário
 
             try {
-                let response = await fetch(`http://localhost:8080/usuario?nome=${nomeBusca}`, {
+                let response = await fetch(`http://localhost:8080/usuario/buscar?nome=${nomeBusca}`, {
                 method: "GET",
                     headers: { "Content-Type": "application/json" },
                 });
@@ -133,11 +144,34 @@
             }
         }
 
+        async function getUserCpf(event) {
+            event.preventDefault();
+
+            let cpfBusca = document.getElementById("cpfBusca").value;
+
+            try {
+                let response = await fetch(`http://localhost:8080/usuario/buscarCPF/${cpfBusca}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                })
+                console.log(cpfBusca)
+                if (!response.ok) {
+                    alert("Erro do back-end" + response.status)
+                    return
+                }
+
+                let data = await response.json();
+                criarListaDeUsuarios(data);
+            } catch (error) {
+                alert("Erro na requisição: " + error.message)
+            }
+        }
+
         // ## Funções para deletar Usuário(DELETE)
         async function deletarUsuario(id) {
             if (confirm("Tem certeza que deseja deletar este usuario?")) {
                 try {
-                    let response = await fetch(`http://localhost:8080/usuario/${id}`, {
+                    let response = await fetch(`http://localhost:8080/usuario/deletar/${id}`, {
                     method: "DELETE",
                         headers: { "Content-Type": "application/json" },
                     });
@@ -156,6 +190,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("usuarioForm").addEventListener("submit", postUsuario);
             document.getElementById("usuarioBusca").addEventListener("submit", getUsuarios);
+            document.getElementById("usuarioBusca").addEventListener("submit", getUserCpf);
         });
     </script>
 </body>
