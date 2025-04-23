@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -23,7 +23,7 @@ public class Usuarios implements Serializable {
     private String email;
     private String username;
     private String senha;
-    private Date data_nascimento;
+    private LocalDate data_nascimento;
 }
 
 
