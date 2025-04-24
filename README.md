@@ -1,54 +1,84 @@
-# Cadastro_Usuario_ATV
-Atividade avaliativa Back-End
+# Projeto Back-End: Gerenciamento de Usuários
 
-Usuário
+## 📚 Contexto
 
-Utilizando como base os conceitos apreendidos em sala de aula faça:
+Este projeto tem como objetivo a criação de uma API Back-End para gerenciar usuários, com base nos conceitos estudados em sala de aula. O Front-End está previamente estruturado e fornecido pelo professor, cabendo ao aluno ajustar a integração via JSON conforme o modelo de Back-End desenvolvido.
 
-Contexto:
+---
 
-O texto abaixo descreve os requisitos de um Back-end para a criação e edição de usuário. Os alunos devem desenvolver a aplicação Back-end, API, conforme descrito. 
+## 📝 Atividade
 
-O Front-End esta previamente estruturado(arquivo disponibilizado pelo professor). O aluno deve ajustar o envio do Objeto(JSON) conforme o aluno estrutura o Back-end.
+### 🔧 Entidade: Usuário
 
-Atividade:
+Crie uma entidade chamada `Usuário` com os seguintes atributos, definindo corretamente os tipos de dados e aplicando validações conforme necessário:
 
-Crie uma entidade usuário, contendo os seguintes atributos definindo corretamente os seus tipos e suas validações, se necessário:
-Id
-Nome
-Sobrenome
-CPF
-Email
-Username
-Senha
-Data de nascimento
+- `id` (identificador único)
+- `nome`
+- `sobrenome`
+- `cpf`
+- `email`
+- `username`
+- `senha`
+- `dataNascimento`
 
-Back End:
+---
 
-Faça agora as seguintes rotas para manipulação deste usuário:
+### 🔁 Funcionalidades da API (Rotas)
 
-1. Buscar todos usuários.
-2. Buscar um usuário com base em seu id.
-3. Cadastrar um usuário, com os dados completos.
-4. Atualizar os dados do usuário menos o seu username e senha.
-5. Deletar um usuário.
-6. Atualizar senha do usuário.
-7. Buscar usuários com base em seu nome.
-8. Buscar usuários com base em seu CPF.
+Implemente as seguintes rotas para a manipulação da entidade Usuário:
 
+1. **GET** `/usuarios`  
+   Buscar todos os usuários.
 
-Front End:
+2. **GET** `/usuarios/:id`  
+   Buscar um usuário com base no seu ID.
 
-O Professo deixou disponível 3 telas:
+3. **POST** `/usuarios`  
+   Cadastrar um novo usuário com todos os dados obrigatórios.
 
-Usuário.html
-Cadastro de usuário e listagem
+4. **PUT** `/usuarios/:id`  
+   Atualizar os dados de um usuário, **exceto** `username` e `senha`.
 
-usuarioEdit.html
-Editar usuário
+5. **DELETE** `/usuarios/:id`  
+   Deletar um usuário.
 
-usuarioEditSenha.html
-Editar apenas senha do usuário
+6. **PATCH** `/usuarios/:id/senha`  
+   Atualizar apenas a senha do usuário.
 
-As três telas disponibilizadas esta faltando ajustar o JSON que será enviado e as rotas, conforme o aluno criar o seu Back-end. O local sugerido para estruturar o JSON esta descrito com o comentário: //ESTRUTURE O OBJETO NO FORMATO JSON
-Caso julgue necessário o Front-end pode ser alterado, como por exemplo acrescentar um novo campo para busca e até mesmo criação de nova função para realizar nova requisição.
+7. **GET** `/usuarios/nome/:nome`  
+   Buscar usuários com base no nome.
+
+8. **GET** `/usuarios/cpf/:cpf`  
+   Buscar usuários com base no CPF.
+
+---
+
+## 🖥️ Integração com Front-End
+
+O professor disponibilizou três telas HTML:
+
+- `usuario.html`  
+  Cadastro e listagem de usuários.
+
+- `usuarioEdit.html`  
+  Edição de dados do usuário.
+
+- `usuarioEditSenha.html`  
+  Edição apenas da senha do usuário.
+
+### ⚠️ Ajustes necessários no Front-End
+
+- Estruture os objetos no formato JSON correto conforme os comentários `//ESTRUTURE O OBJETO NO FORMATO JSON` presentes nos arquivos HTML.
+- Ajuste as rotas utilizadas pelo Front-End para que correspondam às rotas da API Back-End criada.
+- É permitido modificar o Front-End, se necessário, incluindo novos campos de busca ou criação de novas funcionalidades.
+
+---
+
+## ✅ Objetivo
+
+O projeto busca avaliar a capacidade do aluno em:
+
+- Estruturar entidades com tipos e validações.
+- Criar rotas RESTful com diferentes verbos HTTP.
+- Integrar corretamente com o Front-End.
+- Entender e aplicar boas práticas de desenvolvimento de APIs.
